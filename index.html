@@ -10,7 +10,7 @@
   <meta property="og:title" content="One-DraZ - Storytelling Platform" />
   <meta property="og:description" content="Explore immersive episodic stories across multiple genres on One-DraZ." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourwebsiteurl.com" />
+  <meta property="og:url" content="https://naveenkumarreddypjr.github.io/One-DraZ-website/" />
   <meta property="og:image" content="https://drive.google.com/thumbnail?id=1N0MEjqw8aQcL33KugbGLhTdIKxHcsw8o&sz=w40-hauto" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="One-DraZ - Storytelling Platform" />
@@ -19,6 +19,20 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora&family=Source+Sans+Pro&display=swap" rel="stylesheet" />
   <style>
+    /* CSS Variables for easy theming */
+    :root {
+      --color-bg-dark: #0b0c1a;
+      --color-bg-gradient-start: #1f1f38;
+      --color-bg-gradient-end: #081425;
+      --color-primary: #2997ff;
+      --color-primary-light: #4684ff;
+      --color-primary-dark: #2b57c9;
+      --color-text-light: #eee;
+      --color-text-muted: #aab6ff;
+      --color-text-alt: #b0b6d4cc;
+      --color-shadow-primary: rgba(41, 151, 255, 0.5);
+      --color-focus-outline: #ffa500;
+    }
     /* Reset and base styles */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -27,25 +41,26 @@
     body, html {
       height: 100%;
       font-family: 'Source Sans Pro', sans-serif;
-      color: #eee;
-      background-color: #0b0c1a;
+      color: var(--color-text-light);
+      background-color: var(--color-bg-dark);
       overflow-x: hidden;
     }
     a {
       color: inherit;
-      text-decoration: none
+      text-decoration: none;
       cursor: pointer;
     }
     a:focus, button:focus {
-      outline: 2px solid #ffa500;
+      outline: 2px solid var(--color-focus-outline);
       outline-offset: 2px;
+      outline-style: solid;
     }
     /* Skip navigation */
     .skip-link {
       position: absolute;
       top: -40px;
       left: 0;
-      background: #2997ff;
+      background: var(--color-primary);
       color: white;
       padding: 8px 12px;
       z-index: 10000;
@@ -58,7 +73,7 @@
       top: 0;
       outline: none;
     }
-    /* Splash screen styles */
+    /* Splash screen with fade-out */
     #splash {
       position: fixed;
       inset: 0;
@@ -70,18 +85,23 @@
       z-index: 1000;
       cursor: pointer;
       user-select: none;
+      transition: opacity 0.8s ease;
+    }
+    #splash.fade-out {
+      opacity: 0;
+      pointer-events: none;
     }
     #splash .title-box {
       padding: 0.8rem 3rem;
-      border: 3px solid #2997ff;
+      border: 3px solid var(--color-primary);
       border-radius: 15px;
       background: rgba(10, 17, 45, 0.6);
-      box-shadow: 0 0 28px #2997ff, 0 0 42px #2997ff;
+      box-shadow: 0 0 28px var(--color-primary), 0 0 42px var(--color-primary);
       text-align: center;
       font-family: 'Cinzel', serif;
       font-size: 4rem;
       color: #f8fbff;
-      text-shadow: 0 0 16px #2997ff, 0 0 32px #2997ff;
+      text-shadow: 0 0 16px var(--color-primary), 0 0 32px var(--color-primary);
       user-select: none;
       transition: box-shadow 0.3s ease;
     }
@@ -98,14 +118,11 @@
       text-shadow: 0 0 6px #b37e10;
       user-select: none;
     }
-    #splash span {
-      display: none;
-    }
     /* Main content */
     #main {
       display: none;
       min-height: 100vh;
-      background: linear-gradient(135deg, #1f1f38, #081425);
+      background: linear-gradient(135deg, var(--color-bg-gradient-start), var(--color-bg-gradient-end));
       padding-top: 80px;
       font-family: 'Lora', serif;
     }
@@ -133,7 +150,7 @@
     .logo img {
       height: 40px;
       width: auto;
-      filter: drop-shadow(0 0 3px #2997ff);
+      filter: drop-shadow(0 0 3px var(--color-primary));
       border-radius: 6px;
       background: rgba(17, 24, 40, 0.9);
       padding: 3px 5px;
@@ -142,7 +159,7 @@
       font-family: 'Cinzel', serif;
       font-size: 1.6rem;
       color: #80b3ff;
-      text-shadow: 0 0 6px #2997ff;
+      text-shadow: 0 0 6px var(--color-primary);
       letter-spacing: 0.05em;
       user-select: none;
     }
@@ -167,13 +184,11 @@
     }
     /* Genre Filter */
     #genre-filter {
-      margin-top: 12px;
+      margin: 12px auto 0;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
       justify-content: center;
       z-index: 50;
       position: relative;
@@ -185,19 +200,20 @@
       padding: 7px 14px;
       font-weight: 600;
       font-size: 0.85rem;
-      color: #aab6ff;
+      color: var(--color-text-muted);
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       user-select: none;
     }
     #genre-filter button:hover, #genre-filter button:focus-visible {
-      background-color: #4684ff;
-      box-shadow: 0 0 12px #4684ff;
+      background-color: var(--color-primary-light);
+      box-shadow: 0 0 12px var(--color-primary-light);
       color: white;
+      outline: none;
     }
     #genre-filter button.active {
-      background-color: #2b57c9;
-      box-shadow: 0 0 16px #2b57c9;
+      background-color: var(--color-primary-dark);
+      box-shadow: 0 0 16px var(--color-primary-dark);
       color: white;
     }
     /* Featured carousel */
@@ -231,12 +247,32 @@
       scroll-snap-align: start;
       transition: 0.3s ease all;
       user-select: none;
+      position: relative;
     }
     .story-card:hover, .story-card:focus-visible {
       box-shadow: 0 8px 20px #4c7bf0cc;
       transform: scale(1.06);
       outline: none;
       z-index: 10;
+    }
+    .story-card .read-more-overlay {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      background-color: rgba(0,0,0,0.6);
+      color: var(--color-text-light);
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+    .story-card:hover .read-more-overlay,
+    .story-card:focus-visible .read-more-overlay {
+      opacity: 1;
+      pointer-events: auto;
     }
     .story-cover {
       width: 100%;
@@ -270,7 +306,7 @@
     .story-summary {
       font-family: 'Lora', serif;
       font-size: 0.9rem;
-      color: #b0b6d4cc;
+      color: var(--color-text-alt);
       line-height: 1.3;
     }
     .episode-number {
@@ -319,6 +355,13 @@
       background: #576eb4;
       cursor: default;
       color: #d9e0ff;
+    }
+    /* Additional pagination Prev/Next */
+    #pagination .prev-next-btn {
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 6px 14px;
+      user-select: none;
     }
     /* Footer */
     footer {
@@ -398,11 +441,12 @@
       text-shadow: 0 0 6px #7693ff;
     }
     #episodeModal .modal-content #episodeText {
-      font-size: 1.02rem;
-      line-height: 1.45;
+      font-size: 1.1rem;
+      line-height: 1.6;
       white-space: normal;
       color: #c2caffcc;
       user-select: text;
+      margin-bottom: 1rem;
     }
     #episodeModal button.close-btn {
       background: none;
@@ -437,6 +481,7 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      loading: lazy;
     }
     /* Custom message below genre filters */
     #genre-message {
@@ -444,7 +489,7 @@
       margin: 15px auto;
       font-family: 'Lora', serif;
       font-size: 1.1rem;
-      color: #aab6ff;
+      color: var(--color-text-muted);
       text-align: center;
       min-height: 3em;
     }
@@ -459,7 +504,7 @@
   <main id="main" role="main" aria-hidden="true">
     <header>
       <div class="logo" aria-label="One-DraZ logo and homepage">
-        <img src="https://drive.google.com/thumbnail?id=1N0MEjqw8aQcL33KugbGLhTdIKxHcsw8o&sz=w40-hauto" alt="One-DraZ Logo" style="height: 40px; width: auto;" />
+        <img src="https://drive.google.com/thumbnail?id=1N0MEjqw8aQcL33KugbGLhTdIKxHcsw8o&sz=w40-hauto" alt="One-DraZ Logo" loading="lazy" />
         <div class="logo-text">One-DraZ</div>
       </div>
       <nav aria-label="Primary navigation">
@@ -471,7 +516,7 @@
     </header>
     <section id="genre-filter" aria-label="Filter stories by genre">
       <button class="active" data-genre="all" aria-pressed="true">All</button>
-      <button data-genre="fantasy and adventure" aria-pressed="false">Fantasy and Adventure</button>
+      <button data-genre="adventure and fantasy" aria-pressed="false">Adventure and Fantasy</button>
       <button data-genre="thriller" aria-pressed="false">Thriller</button>
       <button data-genre="fantasy" aria-pressed="false">Fantasy</button>
       <button data-genre="cosmic" aria-pressed="false">Cosmic</button>
@@ -481,11 +526,11 @@
     <section id="featured" aria-label="Featured stories carousel" tabindex="0"></section>
     <section id="story-grid" aria-label="Story listings" tabindex="0"></section>
     <section id="about-section" tabindex="0" style="max-width: 900px; margin: 20px auto 60px; display: none;">
-      One-DraZ – A storytelling platform featuring a diverse collection of unique fantasy, thriller, cosmic, and other genre stories, with episodic content and immersive narratives. A world which has no limits and stories which make us enter into that world.
+      One-DraZ – A storytelling platform featuring a diverse collection of unique fantasy, thriller, cosmic, and other genre stories, with episodic content and immersive narratives. A world which has no limits and stories which make us enter into that world.
     </section>
     <section id="disclaimer-section" tabindex="0" style="max-width:900px; margin:20px auto 60px; display:none;">
-      all the stories in site are fictional and intended for entertainment only. The author takes no responsibility for any interpretation or consequences arising from reading the stories.
-      This site is only for reading visitors should not copy or steal the content without permission.
+      All the stories on this site are fictional and intended for entertainment only. The author takes no responsibility for any interpretation or consequences arising from reading the stories.
+      This site is only for reading visitors and the content should not be copied or stolen without permission.
     </section>
     <nav id="pagination" aria-label="Pagination controls"></nav>
     <footer>
@@ -504,28 +549,28 @@
       <h2 id="episodeModalTitle">OneDraz – Episode 1: Genesis of the Void</h2>
       <div id="episodeText" tabindex="0">
         <figure>
-          <iframe src="https://drive.google.com/file/d/1NUSHtxBBoPIPtkINML8TdX7oh4KtJIBB/preview" allow="autoplay"></iframe>
-          <figcaption style="font-style: italic; margin-top: 0.3em; color: #aab6ff;">Celestial beings gathered</figcaption>
+          <iframe src="https://drive.google.com/file/d/1NUSHtxBBoPIPtkINML8TdX7oh4KtJIBB/preview" allow="autoplay" loading="lazy"></iframe>
+          <figcaption style="font-style: italic; margin-top: 0.3em; color: var(--color-text-muted);">Celestial beings gathered</figcaption>
         </figure>
         <p>900 years ago.<br>Before time could be measured by men, the Seven Cosmic Entities emerged at the heart of existence. They were not born, nor created — they manifested from the fabric of Creation itself, each embodying an eternal force: Light, Darkness, Time, Space, Chaos, Order, and the Unknown.</p>
         <figure>
-          <iframe src="https://drive.google.com/file/d/1NOea1thkIbER9FSeZGZgoLIyg_dzgiwy/preview" allow="autoplay"></iframe>
-          <figcaption style="font-style: italic; margin-top: 0.3em; color: #aab6ff;">They are combining their powers</figcaption>
+          <iframe src="https://drive.google.com/file/d/1NOea1thkIbER9FSeZGZgoLIyg_dzgiwy/preview" allow="autoplay" loading="lazy"></iframe>
+          <figcaption style="font-style: italic; margin-top: 0.3em; color: var(--color-text-muted);">They are combining their powers</figcaption>
         </figure>
         <p>Drawn to one place beyond the reach of mortal stars, these entities stood as the Rulers of the Cosmos and the Multiverse. To understand their purpose, they chose not to exist in separation. They raised their infinite hands of energy, merged their essence, and became One.</p>
         <figure>
-          <iframe src="https://drive.google.com/file/d/1NQljR71qpIQmYzTxeVt6GvFtYaq3ReCL/preview" allow="autoplay"></iframe>
-          <figcaption style="font-style: italic; margin-top: 0.3em; color: #aab6ff;">They attain a single form</figcaption>
+          <iframe src="https://drive.google.com/file/d/1NQljR71qpIQmYzTxeVt6GvFtYaq3ReCL/preview" allow="autoplay" loading="lazy"></iframe>
+          <figcaption style="font-style: italic; margin-top: 0.3em; color: var(--color-text-muted);">They attain a single form</figcaption>
         </figure>
         <p>The union was overwhelming. The vast oceans of the multiverse trembled, constellations fell silent, and even dimensions folded. The presence of their collective form filled all of existence with a divine brilliance — so radiant that it drowned even shadows.</p>
         <figure>
-          <iframe src="https://drive.google.com/file/d/1NU_LfPzU3XIK0Lv9BbEtAB0rHe2WysOU/preview" allow="autoplay"></iframe>
-          <figcaption style="font-style: italic; margin-top: 0.3em; color: #aab6ff;">They attained a final form and are making something</figcaption>
+          <iframe src="https://drive.google.com/file/d/1NU_LfPzU3XIK0Lv9BbEtAB0rHe2WysOU/preview" allow="autoplay" loading="lazy"></iframe>
+          <figcaption style="font-style: italic; margin-top: 0.3em; color: var(--color-text-muted);">They attained a final form and are making something</figcaption>
         </figure>
         <p>As they focused their energy into a single point — a glowing sphere of transcendent power — the entire cosmos quaked. Then came the Silence. Stars vanished. Worlds became dust. What remained was emptiness — an endless void stretching into nothingness. In their fusion, the Seven had given birth not to life... but to an Ending.</p>
         <figure style="margin-bottom: 2em;">
-          <iframe src="https://drive.google.com/file/d/1NRQtO3odWFfON3wV1V08GiEeZi2ivxYE/preview" allow="autoplay"></iframe>
-          <figcaption style="font-style: italic; margin-top: 0.3em; color: #aab6ff;">The emptiness or space</figcaption>
+          <iframe src="https://drive.google.com/file/d/1NRQtO3odWFfON3wV1V08GiEeZi2ivxYE/preview" allow="autoplay" loading="lazy"></iframe>
+          <figcaption style="font-style: italic; margin-top: 0.3em; color: var(--color-text-muted);">The emptiness or space</figcaption>
         </figure>
         <p>And within that endless emptiness, something ancient stirred, waiting to be awakened again…</p>
       </div>
@@ -534,17 +579,18 @@
   <script>
     const stories = [
       {
-        id: "story 1",
+        id: "story1",
         title: "One-DraZ",
         genre: "adventure and fantasy",
-        summary:
-          "A world where weapons have brain and powers are captured in cubes. A story of a boy who has fate of the cosmos in his hand.",
+        summary: "A world where weapons have brain and powers are captured in cubes. A story of a boy who has fate of the cosmos in his hand.",
         episode: 1,
         featured: true,
         cover: "https://drive.google.com/thumbnail?id=1XwlDF6U184S7dzkBHdWlfNYLuwFxN0mT",
         contentId: "episodeModal",
       },
+      // Add more story objects here in the future
     ];
+
     const splash = document.getElementById("splash");
     const main = document.getElementById("main");
     const genreButtons = document.querySelectorAll("#genre-filter button");
@@ -552,31 +598,39 @@
     const storyGrid = document.getElementById("story-grid");
     const pagination = document.getElementById("pagination");
     const episodeModal = document.getElementById("episodeModal");
-    const closeBtn = document.querySelector("#episodeModal .close-btn");
+    const closeBtn = episodeModal.querySelector(".close-btn");
     const genreMessage = document.getElementById("genre-message");
     const aboutSection = document.getElementById("about-section");
     const disclaimerSection = document.getElementById("disclaimer-section");
     const aboutLink = document.getElementById("about-link");
     const disclaimerLink = document.getElementById("disclaimer-link");
+
     let currentPage = 1;
     let currentGenre = "all";
     const storiesPerPage = 6;
     let filteredStories = [...stories];
-    splash.addEventListener("click", () => {
-      splash.style.display = "none";
-      main.style.display = "block";
-      main.setAttribute("aria-hidden", "false");
-      renderStories();
-      aboutSection.style.display = 'none';
-      disclaimerSection.style.display = 'none';
-      genreMessage.textContent = '';
-    });
+
+    // Fade out splash animation on click or keyboard enter/space
+    function hideSplash() {
+      splash.classList.add('fade-out');
+      setTimeout(() => {
+        splash.style.display = 'none';
+        main.style.display = 'block';
+        main.setAttribute('aria-hidden', 'false');
+        renderStories();
+        aboutSection.style.display = 'none';
+        disclaimerSection.style.display = 'none';
+        genreMessage.textContent = '';
+      }, 800);
+    }
+    splash.addEventListener("click", hideSplash);
     splash.addEventListener("keypress", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        splash.click();
+        hideSplash();
       }
     });
+
     aboutLink.addEventListener("click", (e) => {
       e.preventDefault();
       aboutSection.style.display = 'block';
@@ -586,6 +640,7 @@
       featuredSection.innerHTML = '';
       pagination.innerHTML = '';
     });
+
     disclaimerLink.addEventListener("click", (e) => {
       e.preventDefault();
       disclaimerSection.style.display = 'block';
@@ -595,6 +650,7 @@
       featuredSection.innerHTML = '';
       pagination.innerHTML = '';
     });
+
     function createStoryCard(story) {
       const card = document.createElement("article");
       card.className = "story-card";
@@ -617,69 +673,95 @@
           card.click();
         }
       });
+
       const cover = document.createElement("img");
       cover.className = "story-cover";
       cover.src = story.cover;
       cover.alt = `Cover image for ${story.title}`;
+      cover.loading = "lazy";
+
       const content = document.createElement("div");
       content.className = "story-content";
+
       const title = document.createElement("h3");
       title.className = "story-title";
       title.textContent = story.title;
+
       const genre = document.createElement("div");
       genre.className = "story-genre";
       genre.textContent = story.genre;
+
       const summary = document.createElement("p");
       summary.className = "story-summary";
       summary.textContent = story.summary;
+
       const episode = document.createElement("div");
       episode.className = "episode-number";
       episode.textContent = `Episode ${story.episode}`;
+
+      // Read More overlay
+      const overlay = document.createElement("div");
+      overlay.className = "read-more-overlay";
+      overlay.textContent = "Read More";
+
       content.appendChild(title);
       content.appendChild(genre);
       content.appendChild(summary);
       content.appendChild(episode);
+
       card.appendChild(cover);
       card.appendChild(content);
+      card.appendChild(overlay);
+
       return card;
     }
-    function renderStories() {
-      filterStories();
-      renderFeatured();
-      renderPagination();
-      renderStoryGrid();
-      aboutSection.style.display = 'none';
-      disclaimerSection.style.display = 'none';
-      genreMessage.textContent = '';
-    }
+
     function filterStories() {
-      if (currentGenre === "all" || currentGenre === "fantasy and adventure") {
-        filteredStories = stories;
+      if (currentGenre === "all") {
+        filteredStories = [...stories];
       } else {
-        filteredStories = [];
+        filteredStories = stories.filter(story => story.genre.toLowerCase().includes(currentGenre));
       }
       const pageCount = Math.ceil(filteredStories.length / storiesPerPage);
       if (currentPage > pageCount) currentPage = 1;
     }
+
     function renderStoryGrid() {
       storyGrid.innerHTML = "";
       const start = (currentPage - 1) * storiesPerPage;
       const end = start + storiesPerPage;
-      filteredStories.slice(start, end).forEach((story) => {
+      filteredStories.slice(start, end).forEach(story => {
         storyGrid.appendChild(createStoryCard(story));
       });
     }
+
     function renderFeatured() {
       featuredSection.innerHTML = "";
-      const featured = stories.filter((story) => story.featured && (currentGenre === "all" || currentGenre === "fantasy and adventure"));
-      featured.forEach((story) => {
+      const featured = stories.filter(story => story.featured && (currentGenre === "all" || story.genre.toLowerCase().includes(currentGenre)));
+      featured.forEach(story => {
         featuredSection.appendChild(createStoryCard(story));
       });
     }
+
     function renderPagination() {
       pagination.innerHTML = "";
       const count = Math.ceil(filteredStories.length / storiesPerPage);
       if (count <= 1) return;
+
+      // Prev button
+      const prevBtn = document.createElement("button");
+      prevBtn.className = "prev-next-btn";
+      prevBtn.textContent = "← Prev";
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderStories();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+      pagination.appendChild(prevBtn);
+
       for (let i = 1; i <= count; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
@@ -693,13 +775,38 @@
         });
         pagination.appendChild(btn);
       }
+
+      // Next button
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "prev-next-btn";
+      nextBtn.textContent = "Next →";
+      nextBtn.disabled = currentPage === count;
+      nextBtn.addEventListener("click", () => {
+        if (currentPage < count) {
+          currentPage++;
+          renderStories();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+      pagination.appendChild(nextBtn);
     }
-    genreButtons.forEach((button) => {
+
+    function renderStories() {
+      filterStories();
+      renderFeatured();
+      renderPagination();
+      renderStoryGrid();
+      aboutSection.style.display = 'none';
+      disclaimerSection.style.display = 'none';
+      genreMessage.textContent = '';
+    }
+
+    genreButtons.forEach(button => {
       button.addEventListener("click", () => {
         if (currentGenre === button.dataset.genre) return;
         currentGenre = button.dataset.genre;
         currentPage = 1;
-        genreButtons.forEach((btn) => {
+        genreButtons.forEach(btn => {
           btn.classList.remove("active");
           btn.setAttribute("aria-pressed", "false");
         });
@@ -707,23 +814,23 @@
         button.setAttribute("aria-pressed", "true");
         aboutSection.style.display = 'none';
         disclaimerSection.style.display = 'none';
-        genreMessage.textContent = '';
+
         if (currentGenre === "thriller") {
-          genreMessage.textContent = "Mananam - the untold story of mind For the one who has mastered the mind, the mind is the best friend. But for the one who has not, the mind itself acts as the greatest enemy.";
+          genreMessage.textContent = "Mananam - the untold story of mind: For the one who has mastered the mind, the mind is the best friend. But for the one who has not, the mind itself acts as the greatest enemy.";
           storyGrid.innerHTML = '';
           featuredSection.innerHTML = '';
           pagination.innerHTML = '';
         } else if (currentGenre === "fantasy") {
-          genreMessage.textContent = "upcoming story : if one percent is converted to 100 percent immense power arises.";
+          genreMessage.textContent = "Upcoming story: If one percent is converted to 100 percent immense power arises.";
           storyGrid.innerHTML = '';
           featuredSection.innerHTML = '';
           pagination.innerHTML = '';
         } else if (currentGenre === "cosmic") {
-          genreMessage.textContent = "recreation from the void: species who rule cosmos";
+          genreMessage.textContent = "Recreation from the void: species who rule cosmos.";
           storyGrid.innerHTML = '';
           featuredSection.innerHTML = '';
           pagination.innerHTML = '';
-        } else if (currentGenre === "all" || currentGenre === "fantasy and adventure") {
+        } else if (currentGenre === "all" || currentGenre === "adventure and fantasy") {
           genreMessage.textContent = '';
           renderStories();
         } else {
@@ -734,17 +841,20 @@
         }
       });
     });
+
     function openModal(id) {
       const modal = document.getElementById(id);
       modal.setAttribute("aria-hidden", "false");
       modal.focus();
       document.body.style.overflow = "hidden";
     }
+
     function closeModal() {
       episodeModal.setAttribute("aria-hidden", "true");
       splash.focus();
       document.body.style.overflow = "";
     }
+
     closeBtn.addEventListener("click", closeModal);
     episodeModal.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeModal();
